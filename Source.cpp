@@ -62,7 +62,8 @@ short int MainMenu()
 		switch (*button_code)
 		{
 		case 72: //Стрелка вверх.
-		case 119: //W.
+		case 87: //W
+		case 119: //w
 			marker -= 1;
 			if (marker < 1)
 			{
@@ -70,7 +71,8 @@ short int MainMenu()
 			}
 			break;
 		case 80: //Стрелка вниз.
-		case 115: //S.
+		case 83: //S
+		case 115: //s
 			marker += 1;
 			if (marker > 4)
 			{
@@ -120,7 +122,8 @@ short int Menu1() //Доп. меню для первого пункта.
 		switch (*button_code)
 		{
 		case 72: //Стрелка вверх.
-		case 119: //W.
+		case 87: //W
+		case 119: //w
 			marker -= 1;
 			if (marker < 1)
 			{
@@ -128,7 +131,8 @@ short int Menu1() //Доп. меню для первого пункта.
 			}
 			break;
 		case 80: //Стрелка вниз.
-		case 115: //S.
+		case 83: //S
+		case 115: //s
 			marker += 1;
 			if (marker > 2)
 			{
@@ -179,7 +183,8 @@ short int Menu2()
 		switch (*button_code)
 		{
 		case 72: //Стрелка вверх.
-		case 119: //W.
+		case 87: //W
+		case 119: //w
 			marker -= 1;
 			if (marker < 1)
 			{
@@ -187,7 +192,8 @@ short int Menu2()
 			}
 			break;
 		case 80: //Стрелка вниз.
-		case 115: //S.
+		case 83: //S
+		case 115: //s
 			marker += 1;
 			if (marker > 2)
 			{
@@ -208,10 +214,10 @@ void Registration()
 {
 	char username[16];
 	char password[16];
-	cout << "Enter your username, only english letters and arabic numerals. (<= 16 symbols)\n";
+	cout << "Enter your username, only english letters and arabic numerals. (<= 15 symbols)\n";
 	cin >> username;
 	system("cls");
-	cout << "Enter your password, only english letters and arabic numerals. (<= 16 symbols)\n";
+	cout << "Enter your password, only english letters and arabic numerals. (<= 15 symbols)\n";
 	cin >> password;
 	system("cls");
 	ofstream data;
@@ -234,10 +240,10 @@ bool Authorization()
 	data.close();
 	char input_username[16];
 	char input_password[16];
-	cout << "Enter your username:\n";
+	cout << "Enter your username: (<= 15 symbols)\n";
 	cin >> input_username;
 	system("cls");
-	cout << "Enter your password: (Backspace working!)\n";
+	cout << "Enter your password: (<= 15 symbols)(Backspace working!)\n";
 	char* input = new char;
 	short int* i = new short int;
 	for (*i = 0; *i < 16; *i += 1)
@@ -247,6 +253,7 @@ bool Authorization()
 		{
 			break;
 		}
+		//Backspace button
 		else if (*input == 8 and *i > 0)
 		{
 			cout << "\b";
@@ -256,6 +263,7 @@ bool Authorization()
 		{
 			;
 		}
+		//
 		else
 		{
 			input_password[*i] = *input;
@@ -294,22 +302,58 @@ bool Authorization()
 	}
 }
 
+void br_unsigned_int(unsigned int x);
+
+void br_string(char * subname)
+{
+	union str
+	{
+		long integer;
+		char element;
+	};
+	str str;
+	unsigned long int marker;
+	for (short int z = 0; z < 6; z++)
+	{
+		marker = 1 << 7;
+		str.element = subname[z];
+		cout << subname[z] << " = ";
+		for (short int i = 0; i < 8; i++)
+		{
+			if ((marker & str.integer) == marker)
+			{
+				cout << "1";
+			}
+			else
+			{
+				cout << "0";
+			}
+			marker >>= 1;
+		}
+		if (z == 5)
+		{
+		    cout << ".";
+		}
+		else
+		{
+		    cout << ", ";
+		}
+	}
+	cout << "\n";
+}
+
 void Greetings(bool user_status)
 {
-	char username[16];
+	char username[16] = "User N";
 	short int* func_choice = new short int;
 	if (user_status == false)
 	{
 		*func_choice = Menu2();
-		if (*func_choice == 1)
-		{
-			//User N
-			//username[16] += "UserN";
-		}
-		else
+		if (*func_choice == 2)
 		{
 			//Возвращение в главное меню
 			cout << "Log in to the appropriate place in the main menu.\n";
+			delete func_choice;
 			return;
 		}
 	}
@@ -319,6 +363,36 @@ void Greetings(bool user_status)
 		ifstream data;
 		data.open("data.txt");
 		data >> username;
+		data.close();
+	}
+	cout << "I greet you, " << username << "!\n";
+	cout << "There is such a blizzard on the street. Sit down at the hearth, here you are always welcome.\n";
+	cout << "This program was written by a student of the group 9893, Gregory Ivanov.\n";
+	cout << "By the way, in the memory of my computer, my group number looks like: ";
+	br_unsigned_int(9893);
+	cout << ",\n" << "and surname as:\n";
+	char subname[7] = "Ivanov";
+	br_string(subname);
+	delete func_choice;
+}
+
+void br_unsigned_int(unsigned int x)
+{
+	unsigned long int integer_unsigned_number = x;
+	//Значение для сравнения с битами вводимого числа.
+	unsigned long int marker = 1 << 31;
+	//Двигаемся от страшего бита к младшему.
+	for (short int i = 0; i < 32; i++)
+	{
+		if ((marker & integer_unsigned_number) == marker)
+		{
+			cout << "1";
+		}
+		else
+		{
+			cout << "0";
+		}
+		marker >>= 1;
 	}
 }
 
