@@ -7,11 +7,12 @@ using namespace std;
 
 short int MainMenu()
 {
-	short int* marker = new short int(1);
+	short int marker = 1;
 	short int* button_code = new short int;
 	while (true)
 	{
-		if (*marker == 1)
+		//Выделение цветом.
+		if (marker == 1)
 		{
 			HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleTextAttribute(handle, FOREGROUND_GREEN);
@@ -22,7 +23,7 @@ short int MainMenu()
 		{
 			cout << "1. Registration or Authorization\n";
 		}
-		if (*marker == 2)
+		if (marker == 2)
 		{
 			HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleTextAttribute(handle, FOREGROUND_GREEN);
@@ -33,7 +34,7 @@ short int MainMenu()
 		{
 			cout << "2. Greetings\n";
 		}
-		if (*marker == 3)
+		if (marker == 3)
 		{
 			HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleTextAttribute(handle, FOREGROUND_GREEN);
@@ -44,7 +45,7 @@ short int MainMenu()
 		{
 			cout << "3. Array\n";
 		}
-		if (*marker == 4)
+		if (marker == 4)
 		{
 			HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
 			SetConsoleTextAttribute(handle, FOREGROUND_GREEN);
@@ -60,26 +61,29 @@ short int MainMenu()
 		switch (*button_code)
 		{
 		case 72: //Стрелка вверх.
-		case 119: //W
-			*marker -= 1;
-			if (*marker < 1)
+		case 119: //W.
+			marker -= 1;
+			if (marker < 1)
 			{
-				*marker = 4;
+				marker = 4;
 			}
 			break;
 		case 80: //Стрелка вниз.
-		case 115: //S
-			*marker += 1;
-			if (*marker > 4)
+		case 115: //S.
+			marker += 1;
+			if (marker > 4)
 			{
-				*marker = 1;
+				marker = 1;
 			}
+			break;
+		case 13: //Enter.
+			delete button_code;
+			return marker;
 			break;
 		default:
 			break;
 		}
 	}
-	return 0;
 }
 
 int main()
