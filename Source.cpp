@@ -64,6 +64,8 @@ short int MainMenu()
 		case 72: //Стрелка вверх.
 		case 87: //W
 		case 119: //w
+		case 150: //Ц
+		case 230:  //ц
 			marker -= 1;
 			if (marker < 1)
 			{
@@ -73,6 +75,8 @@ short int MainMenu()
 		case 80: //Стрелка вниз.
 		case 83: //S
 		case 115: //s
+		case 155: //Ы
+		case 235: //ы
 			marker += 1;
 			if (marker > 4)
 			{
@@ -124,6 +128,8 @@ short int Menu1() //Доп. меню для первого пункта.
 		case 72: //Стрелка вверх.
 		case 87: //W
 		case 119: //w
+		case 150: //Ц
+		case 230:  //ц
 			marker -= 1;
 			if (marker < 1)
 			{
@@ -133,6 +139,8 @@ short int Menu1() //Доп. меню для первого пункта.
 		case 80: //Стрелка вниз.
 		case 83: //S
 		case 115: //s
+		case 155: //Ы
+		case 235: //ы
 			marker += 1;
 			if (marker > 2)
 			{
@@ -185,6 +193,8 @@ short int Menu2()
 		case 72: //Стрелка вверх.
 		case 87: //W
 		case 119: //w
+		case 150: //Ц
+		case 230:  //ц
 			marker -= 1;
 			if (marker < 1)
 			{
@@ -194,6 +204,8 @@ short int Menu2()
 		case 80: //Стрелка вниз.
 		case 83: //S
 		case 115: //s
+		case 155: //Ы
+		case 235: //ы
 			marker += 1;
 			if (marker > 2)
 			{
@@ -396,6 +408,91 @@ void br_unsigned_int(unsigned int x)
 	}
 }
 
+void Flag()
+{
+	cout << "Russian flag:\n";
+	HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+	SetConsoleTextAttribute(handle, 15);
+	for (short int j = 0; j < 4; j++)
+	{
+		for (short int i = 0; i < 18; i++)
+		{
+			cout << "*";
+		}
+		cout << endl;
+	}
+	SetConsoleTextAttribute(handle, 1);
+	for (short int j = 0; j < 4; j++)
+	{
+		for (short int i = 0; i < 18; i++)
+		{
+			cout << "*";
+		}
+		cout << endl;
+	}
+	SetConsoleTextAttribute(handle, 4);
+	for (short int j = 0; j < 4; j++)
+	{
+		for (short int i = 0; i < 18; i++)
+		{
+			cout << "*";
+		}
+		cout << endl;
+	}
+	SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+	cout <<"Variant 5: Iceland:" << endl;
+	for (short int j = 0; j < 4; j++)
+	{
+		SetConsoleTextAttribute(handle, 1);
+        cout << "****";
+		SetConsoleTextAttribute(handle, 15);
+		cout << "*";
+		SetConsoleTextAttribute(handle, 4);
+		cout << "**";
+		SetConsoleTextAttribute(handle, 15);
+		cout << "*";
+		SetConsoleTextAttribute(handle, 1);
+		cout << "**********";
+		cout << endl;
+	}
+	SetConsoleTextAttribute(handle, 15);
+	cout << "*****";
+	SetConsoleTextAttribute(handle, 4);
+	cout << "**";
+	SetConsoleTextAttribute(handle, 15);
+	cout << "***********\n";
+	SetConsoleTextAttribute(handle, 4);
+	for (short int j = 0; j < 2; j++)
+	{
+		for (short int i = 0; i < 18; i++)
+		{
+			cout << "*";
+		}
+		cout << endl;
+	}
+	SetConsoleTextAttribute(handle, 15);
+	cout << "*****";
+	SetConsoleTextAttribute(handle, 4);
+	cout << "**";
+	SetConsoleTextAttribute(handle, 15);
+	cout << "***********\n";
+	for (short int j = 0; j < 4; j++)
+	{
+		SetConsoleTextAttribute(handle, 1);
+		cout << "****";
+		SetConsoleTextAttribute(handle, 15);
+		cout << "*";
+		SetConsoleTextAttribute(handle, 4);
+		cout << "**";
+		SetConsoleTextAttribute(handle, 15);
+		cout << "*";
+		SetConsoleTextAttribute(handle, 1);
+		cout << "**********";
+		cout << endl;
+	}
+	SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+}
+
 int main()
 {
 	bool* user_status = new bool(false);
@@ -426,11 +523,17 @@ int main()
 		case 2:
 			Greetings(*user_status);
 			break;
+		case 3:
+
+			break;
+		case 4:
+			Flag();
+			break;
 		default:
 			break;
 		}
 		//Возможность завершить работу программы.
-		cout << "If you want to close the program, press 'Escape' button.\n";
+		cout << "If you want to close the program, press 'Escape' button or press another key to return to the main menu.\n";
 		short int* input = new short int;
 		*input = _getch();
 		system("cls");
