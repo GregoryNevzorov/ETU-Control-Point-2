@@ -161,6 +161,7 @@ void Registration()
 	data << endl;
 	data << password;
 	data.close();
+	cout << "Registration was successful!\n";
 }
 
 bool Authorization()
@@ -173,8 +174,53 @@ bool Authorization()
 	data >> true_password;
 	data.close();
 	char input_username[16];
-	char input_password[16]; 
-	return true;
+	char input_password[16];
+	cout << "Enter your username:\n";
+	cin >> input_username;
+	system("cls");
+	cout << "Enter your password:\n";
+	char* input = new char;
+	short int* i = new short int;
+	for (*i = 0; *i < 16; *i += 1)
+	{
+		*input = _getch();
+		if (*input == 13)
+		{
+			break;
+		}
+		input_password[*i] = *input;
+		cout << "*";
+	}
+	delete input;
+	system("cls");
+	bool* coincidence = new bool(true);
+	for (short int j = 0; j < *i; j++)
+	{
+		if (true_username[j] != input_username[j])
+		{
+			*coincidence = false;
+			cout << "There is no user with this name!\n";
+			break;
+		}
+		if (true_password[j] != input_password[j])
+		{
+			*coincidence = false;
+			cout << "Wrong password!\n";
+			break;
+		}
+	}
+	delete i;
+	if (*coincidence == true)
+	{
+		delete coincidence;
+		cout << "Authorization was successful!\n";
+		return true;
+	}
+	else
+	{
+		delete coincidence;
+		return false;
+	}
 }
 
 int main()
@@ -194,7 +240,14 @@ int main()
 			}
 			else
 			{
-				*user_status = Authorization();
+				if (*user_status == false)
+				{
+					*user_status = Authorization();
+				}
+				else
+				{
+					cout << "You're already authorized.\n";
+				}
 			}
 			break;
 		default:
