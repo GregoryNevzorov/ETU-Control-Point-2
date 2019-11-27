@@ -145,6 +145,65 @@ short int Menu1() //Доп. меню для первого пункта.
 	}
 }
 
+short int Menu2()
+{
+	short int marker = 1;
+	short int* button_code = new short int;
+	while (true)
+	{
+		cout << "You haven't authorized! Are you sure you want to continue this way?\n";
+		if (marker == 1)
+		{
+			HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(handle, FOREGROUND_GREEN);
+			cout << "YES\n";
+			SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		}
+		else
+		{
+			cout << "YES\n";
+		}
+		if (marker == 2)
+		{
+			HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(handle, FOREGROUND_GREEN);
+			cout << "NO\n";
+			SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		}
+		else
+		{
+			cout << "NO\n";
+		}
+		*button_code = _getch();
+		system("cls");
+		switch (*button_code)
+		{
+		case 72: //Стрелка вверх.
+		case 119: //W.
+			marker -= 1;
+			if (marker < 1)
+			{
+				marker = 2;
+			}
+			break;
+		case 80: //Стрелка вниз.
+		case 115: //S.
+			marker += 1;
+			if (marker > 2)
+			{
+				marker = 1;
+			}
+			break;
+		case 13: //Enter.
+			delete button_code;
+			return marker;
+			break;
+		default:
+			break;
+		}
+	}
+}
+
 void Registration()
 {
 	char username[16];
@@ -178,7 +237,7 @@ bool Authorization()
 	cout << "Enter your username:\n";
 	cin >> input_username;
 	system("cls");
-	cout << "Enter your password:\n";
+	cout << "Enter your password: (Backspace working!)\n";
 	char* input = new char;
 	short int* i = new short int;
 	for (*i = 0; *i < 16; *i += 1)
@@ -188,8 +247,20 @@ bool Authorization()
 		{
 			break;
 		}
-		input_password[*i] = *input;
-		cout << "*";
+		else if (*input == 8 and *i > 0)
+		{
+			cout << "\b";
+			*i -= 2;
+		}
+		else if (*input == 8)
+		{
+			;
+		}
+		else
+		{
+			input_password[*i] = *input;
+			cout << "*";
+		}
 	}
 	delete input;
 	system("cls");
@@ -223,9 +294,32 @@ bool Authorization()
 	}
 }
 
-void Greetings(abcd)
+void Greetings(bool user_status)
 {
-
+	char username[16];
+	short int* func_choice = new short int;
+	if (user_status == false)
+	{
+		*func_choice = Menu2();
+		if (*func_choice == 1)
+		{
+			//User N
+			//username[16] += "UserN";
+		}
+		else
+		{
+			//Возвращение в главное меню
+			cout << "Log in to the appropriate place in the main menu.\n";
+			return;
+		}
+	}
+	else
+	{
+		//Имя из DATA
+		ifstream data;
+		data.open("data.txt");
+		data >> username;
+	}
 }
 
 int main()
@@ -256,15 +350,7 @@ int main()
 			}
 			break;
 		case 2:
-			if (*user_status == false)
-			{
-				cout << "Please, authorize first.\n";
-				*user_status = Authorization();
-			}
-			else
-			{
-				Greetings();
-			}
+			Greetings(*user_status);
 			break;
 		default:
 			break;
@@ -274,7 +360,7 @@ int main()
 		short int* input = new short int;
 		*input = _getch();
 		system("cls");
-		if (*input == 27)
+		if (*input == 27) //Escape button code.
 		{
 			delete input;
 			break;
