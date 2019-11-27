@@ -584,6 +584,18 @@ void BrUnsignedInt(unsigned int x)
 	}
 }
 
+void ArrManualInput(short int amount_of_elements, short int* arr)
+{
+	short int counter = 0;
+	for (counter; counter < amount_of_elements; counter++)
+	{
+		cout << "Enter arabic natural numbers less than 100, by separating the elements with the help of button 'Enter'.\n";
+		cout << counter + 1 << ": ";
+		cin >> arr[counter];
+		system("cls");
+	}
+}
+
 void RandomizeArray(short int amount_of_elements, short int* arr)
 //Процедура заполняет массив arr длины amount_of_elements случайными значениями [srand(time(NULL))] в диапазоне от 0 до 99 (int).
 {
@@ -836,6 +848,32 @@ void QuickSort(short int* arr, short int low, short int high)
 	QuickSort(arr, supporting_element_index + 1, high);
 }
 
+void FibTest(short int amount_of_elements, short int* arr)
+{
+	short int temp;
+	short int fib_num_arr[12];
+	fib_num_arr[0] = 0;
+	fib_num_arr[1] = 1;
+	for (short int i = 0; i < 10; i++)
+	{
+		
+	}
+}
+
+void ArrayMedian(short int amount_of_elements, short int* arr)
+{
+	cout << "Array median: ";
+	if ((amount_of_elements % 2) == 0)
+	{
+		short int a = (arr[(amount_of_elements / 2) - 1] + arr[amount_of_elements / 2]) / 2.0;
+		cout << a << ".\n";
+	}
+	else
+	{
+		cout << arr[((amount_of_elements - 1) / 2)] << ".\n";
+	}
+}
+
 void Array()
 {
 	short int* array_size = new short int;
@@ -849,7 +887,7 @@ void Array()
 	switch (*func_choice)
 	{
 	case 1:
-
+		ArrManualInput(*array_size, arr);
 		break;
 	case 2:
 		RandomizeArray(*array_size, arr);
@@ -886,6 +924,8 @@ void Array()
 		break;
 	}
 	PrintArray(*array_size, arr);
+	cout << "Average value in the array: " << (arr[*array_size - 1] - arr[0])/2 << ".\n";
+	ArrayMedian(*array_size, arr);
 	delete array_size;
 	delete func_choice;
 	delete func_choice_2;
