@@ -1,2 +1,2 @@
 mad
-word
+pass

@@ -223,6 +223,11 @@ bool Authorization()
 	}
 }
 
+void Greetings(abcd)
+{
+
+}
+
 int main()
 {
 	bool* user_status = new bool(false);
@@ -248,6 +253,17 @@ int main()
 				{
 					cout << "You're already authorized.\n";
 				}
+			}
+			break;
+		case 2:
+			if (*user_status == false)
+			{
+				cout << "Please, authorize first.\n";
+				*user_status = Authorization();
+			}
+			else
+			{
+				Greetings();
 			}
 			break;
 		default:
