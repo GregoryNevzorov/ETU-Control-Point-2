@@ -3,6 +3,7 @@
 #include <Windows.h> //Для настроек вывода в консоль и т.п.
 #include <stdlib.h> //Функция system("cls") для очистки консоли.
 #include <fstream> //Запись и чтение из файла.
+#include <chrono>
 
 using namespace std;
 
@@ -222,6 +223,181 @@ short int Menu2()
 	}
 }
 
+short int Menu3()
+{
+	short int marker = 1;
+	short int* button_code = new short int;
+	while (true)
+	{
+		cout << "Choose the method of array entry:\n";
+		if (marker == 1)
+		{
+			HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(handle, FOREGROUND_GREEN);
+			cout << "1. Manual input\n";
+			SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		}
+		else
+		{
+			cout << "1. Manual input\n";
+		}
+		if (marker == 2)
+		{
+			HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(handle, FOREGROUND_GREEN);
+			cout << "2. Random numbers from 0 to 99\n";
+			SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		}
+		else
+		{
+			cout << "2. Random numbers from 0 to 99\n";
+		}
+		if (marker == 3)
+		{
+			HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(handle, FOREGROUND_GREEN);
+			cout << "3. From the 'array.txt' file. (there is a sample in the directory)\n";
+			SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		}
+		else
+		{
+			cout << "3. From the 'array.txt' file. (there is a sample in the directory)\n";
+		}
+		*button_code = _getch();
+		system("cls");
+		switch (*button_code)
+		{
+		case 72: //Стрелка вверх.
+		case 87: //W
+		case 119: //w
+		case 150: //Ц
+		case 230:  //ц
+			marker -= 1;
+			if (marker < 1)
+			{
+				marker = 3;
+			}
+			break;
+		case 80: //Стрелка вниз.
+		case 83: //S
+		case 115: //s
+		case 155: //Ы
+		case 235: //ы
+			marker += 1;
+			if (marker > 3)
+			{
+				marker = 1;
+			}
+			break;
+		case 13: //Enter.
+			delete button_code;
+			return marker;
+			break;
+		default:
+			break;
+		}
+	}
+}
+
+short int Menu3_2()
+{
+	short int marker = 1;
+	short int* button_code = new short int;
+	while (true)
+	{
+		cout << "Select the sorting algorithm:\n";
+		//Выделение цветом.
+		if (marker == 1)
+		{
+			HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(handle, FOREGROUND_GREEN);
+			cout << "1. Bubble sort\n";
+			SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		}
+		else
+		{
+			cout << "1. Bubble sort\n";
+		}
+		if (marker == 2)
+		{
+			HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(handle, FOREGROUND_GREEN);
+			cout << "2. Shaker sort\n";
+			SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		}
+		else
+		{
+			cout << "2. Shaker sort\n";
+		}
+		if (marker == 3)
+		{
+			HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(handle, FOREGROUND_GREEN);
+			cout << "3. Comb sort\n";
+			SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		}
+		else
+		{
+			cout << "3. Comb sort\n";
+		}
+		if (marker == 4)
+		{
+			HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(handle, FOREGROUND_GREEN);
+			cout << "4. Insert sort\n";
+			SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		}
+		else
+		{
+			cout << "4. Insert sort\n";
+		}
+		if (marker == 5)
+		{
+			HANDLE handle = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(handle, FOREGROUND_GREEN);
+			cout << "5. Quick sort\n";
+			SetConsoleTextAttribute(handle, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		}
+		else
+		{
+			cout << "5. Quick sort\n";
+		}
+		*button_code = _getch();
+		system("cls");
+		switch (*button_code)
+		{
+		case 72: //Стрелка вверх.
+		case 87: //W
+		case 119: //w
+		case 150: //Ц
+		case 230:  //ц
+			marker -= 1;
+			if (marker < 1)
+			{
+				marker = 5;
+			}
+			break;
+		case 80: //Стрелка вниз.
+		case 83: //S
+		case 115: //s
+		case 155: //Ы
+		case 235: //ы
+			marker += 1;
+			if (marker > 5)
+			{
+				marker = 1;
+			}
+			break;
+		case 13: //Enter.
+			delete button_code;
+			return marker;
+			break;
+		default:
+			break;
+		}
+	}
+}
+
 void Registration()
 {
 	char username[16];
@@ -314,9 +490,9 @@ bool Authorization()
 	}
 }
 
-void br_unsigned_int(unsigned int x);
+void BrUnsignedInt(unsigned int x);
 
-void br_string(char * subname)
+void BrString(char * subname)
 {
 	union str
 	{
@@ -381,14 +557,14 @@ void Greetings(bool user_status)
 	cout << "There is such a blizzard on the street. Sit down at the hearth, here you are always welcome.\n";
 	cout << "This program was written by a student of the group 9893, Gregory Ivanov.\n";
 	cout << "By the way, in the memory of my computer, my group number looks like: ";
-	br_unsigned_int(9893);
+	BrUnsignedInt(9893);
 	cout << ",\n" << "and surname as:\n";
 	char subname[7] = "Ivanov";
-	br_string(subname);
+	BrString(subname);
 	delete func_choice;
 }
 
-void br_unsigned_int(unsigned int x)
+void BrUnsignedInt(unsigned int x)
 {
 	unsigned long int integer_unsigned_number = x;
 	//Значение для сравнения с битами вводимого числа.
@@ -406,6 +582,314 @@ void br_unsigned_int(unsigned int x)
 		}
 		marker >>= 1;
 	}
+}
+
+void RandomizeArray(short int amount_of_elements, short int* arr)
+//Процедура заполняет массив arr длины amount_of_elements случайными значениями [srand(time(NULL))] в диапазоне от 0 до 99 (int).
+{
+	srand(time(NULL));
+	short int counter = 0;
+	for (counter; counter < amount_of_elements; counter++)
+	{
+		arr[counter] = rand() % 100;
+	}
+}
+
+void PrintArray(short int amount_of_elements, short int* arr)
+//Процедура для вывода массива arr длины amount_of_elements в консоль, 10 элементов на строку.
+//Если количество элементов в массиве больше 200, печатает по 20 элементов в строке.
+//Если количество элементов в массиве больше 600, печатает по 40 элементов в строке.
+//Если значение элемента массива меньше 10 (у числа только 1 разряд), перед ним в консоль печатается дополнительный пробел.
+//После выполнения процедуры курсор переводится на две строки вниз.
+{
+	short int counter = 0;
+	if (amount_of_elements <= 200)
+	{
+		for (counter; counter < amount_of_elements; counter++)
+		{
+			if ((counter + 1) % 10 == 0 and counter != 0)
+			{
+				if (arr[counter] >= 10)
+					cout << arr[counter] << "\n";
+				else
+					cout << " " << arr[counter] << "\n";
+			}
+			else
+			{
+				if (arr[counter] >= 10)
+					cout << arr[counter] << " ";
+				else
+					cout << " " << arr[counter] << " ";
+			}
+		}
+		if (amount_of_elements % 10 != 0)
+		{
+			cout << "\n";
+		}
+	}
+	else if (amount_of_elements <= 600)
+	{
+		for (counter; counter < amount_of_elements; counter++)
+		{
+			if ((counter + 1) % 20 == 0 and counter != 0)
+			{
+				if (arr[counter] >= 10)
+					cout << arr[counter] << "\n";
+				else
+					cout << " " << arr[counter] << "\n";
+			}
+			else
+			{
+				if (arr[counter] >= 10)
+					cout << arr[counter] << " ";
+				else
+					cout << " " << arr[counter] << " ";
+			}
+		}
+		if (amount_of_elements % 20 != 0)
+		{
+			cout << "\n";
+		}
+	}
+	else
+	{
+		for (counter; counter < amount_of_elements; counter++)
+		{
+			if ((counter + 1) % 40 == 0 and counter != 0)
+			{
+				if (arr[counter] >= 10)
+					cout << arr[counter] << "\n";
+				else
+					cout << " " << arr[counter] << "\n";
+			}
+			else
+			{
+				if (arr[counter] >= 10)
+					cout << arr[counter] << " ";
+				else
+					cout << " " << arr[counter] << " ";
+			}
+		}
+		if (amount_of_elements % 40 != 0)
+		{
+			cout << "\n";
+		}
+	}
+	cout << "\n";
+}
+
+float BubbleSort(short int amount_of_elements, short int* arr)
+{
+	short int exchange;
+	short int i = 0; //Переменная-счетчик для цикла for.
+	short int early_exit; //Отвечает за досрочный выход из цикла при завершении сортировки.
+	unsigned int start_time = clock();
+	do
+	{
+		early_exit = 0;
+
+		for (i; i < amount_of_elements - 1; i++)
+		{
+			if (arr[i] > arr[i + 1])
+			{
+				exchange = arr[i];
+				arr[i] = arr[i + 1];
+				arr[i + 1] = exchange;
+				early_exit += 1;
+			}
+		}
+		amount_of_elements -= 1;
+		i = 0;
+	} while (early_exit != 0);
+	unsigned int end_time = clock();
+	return float(end_time - start_time) / 1000;
+}
+
+float ShakerSort(short int amount_of_elements, short int* arr)
+{
+	short int left_border = 0;
+	short int right_border = 0;
+	short int exchange;
+	long int early_exit; //Отвечает за досрочный выход из цикла при завершении сортировки.
+	short int i; //Переменная-счетчик для цикла for.
+	unsigned int start_time = clock();
+	do
+	{
+		early_exit = 0;
+		i = left_border;
+		for (i; i < amount_of_elements - right_border - 1; i++)
+		{
+			if (arr[i] > arr[i + 1])
+			{
+				exchange = arr[i];
+				arr[i] = arr[i + 1];
+				arr[i + 1] = exchange;
+				early_exit += 1;
+			}
+		}
+		right_border += 1;
+		i = amount_of_elements - right_border - 1; //Т.к. в массивах индексы нумеруются с нуля.
+		for (i; i > left_border - 1; i--)
+		{
+			if (arr[i] < arr[i - 1])
+			{
+				exchange = arr[i];
+				arr[i] = arr[i - 1];
+				arr[i - 1] = exchange;
+				early_exit += 1;
+			}
+		}
+		left_border += 1;
+	} while (early_exit != 0);
+	unsigned int end_time = clock();
+	return float(end_time - start_time) / 1000;
+}
+
+float CombSort(short int amount_of_elements, short int* arr)
+{
+	const float reduction_factor = 1.2473309F; // 1 / (1 - e ^ (-ф)) -- где "e" - основание натурального логарифма, а ф - золотое сечение.
+	long int step = amount_of_elements - 1;
+	short int i;
+	short int exchange;
+	short int early_exit;
+	unsigned int start_time = clock();
+	do
+	{
+		early_exit = 0;
+		for (i = 0; i < amount_of_elements - step; i++)
+		{
+			if (arr[i] > arr[i + step])
+			{
+				exchange = arr[i];
+				arr[i] = arr[i + step];
+				arr[i + step] = exchange;
+				early_exit += 1;
+			}
+		}
+		step /= reduction_factor;
+	} while (early_exit != 0 or step >= 1);
+	unsigned int end_time = clock();
+	return float(end_time - start_time) / 1000;
+}
+
+float InsertSort(short int amount_of_elements, short int* arr)
+{
+	short int buffer;
+	short int i;
+	unsigned int start_time = clock();
+	for (short int subarray_size = 1; subarray_size < amount_of_elements; subarray_size++)
+	{
+		buffer = arr[subarray_size];
+		i = subarray_size;
+		while (i != 0 and buffer < arr[i - 1])
+		{
+			arr[i] = arr[i - 1];
+			i -= 1;
+		}
+		arr[i] = buffer;
+	}
+	unsigned int end_time = clock();
+	return float(end_time - start_time) / 1000;
+}
+
+void QuickSort(short int* arr, short int low, short int high)
+{                        //main()  -->  // 0 // amount_of_elements
+	if (high - low < 2) return;
+	short int exchange;
+	short int left_index = low;
+	short int right_index = high - 1;
+	short int supporting_element_index = high - 1; //Опорный элемент - самый правый элемент.
+	while (true)
+	{
+		for (left_index; left_index < high; left_index++)
+		{
+			if (arr[left_index] > arr[supporting_element_index])
+			{
+				break;
+			}
+		}
+		if (left_index == high) left_index -= 1;
+		for (right_index; low - 1 < right_index; right_index--)
+		{
+			if (arr[right_index] < arr[supporting_element_index])
+			{
+				break;
+			}
+		}
+		if (right_index == low - 1) right_index += 1;
+		if (left_index >= right_index)
+		{
+			exchange = arr[supporting_element_index];
+			arr[supporting_element_index] = arr[left_index];
+			arr[left_index] = exchange;
+			supporting_element_index = left_index;
+			break;
+		}
+		else
+		{
+			exchange = arr[left_index];
+			arr[left_index] = arr[right_index];
+			arr[right_index] = exchange;
+		}
+	}
+	QuickSort(arr, low, supporting_element_index);
+	QuickSort(arr, supporting_element_index + 1, high);
+}
+
+void Array()
+{
+	short int* array_size = new short int;
+	short int* func_choice = new short int;
+	short int* func_choice_2 = new short int;
+	cout << "Enter the array size: (Arabic natural numbers, <= 32767)\n";
+	cin >> *array_size;
+	short int* arr = new short int[*array_size];
+	system("cls");
+	*func_choice = Menu3();
+	switch (*func_choice)
+	{
+	case 1:
+
+		break;
+	case 2:
+		RandomizeArray(*array_size, arr);
+		break;
+	case 3:
+
+		break;
+	default:
+		break;
+	}
+	*func_choice_2 = Menu3_2();
+	system("cls");
+	PrintArray(*array_size, arr);
+	switch (*func_choice_2)
+	{
+	case 1:
+		cout << "Sorting time - " << BubbleSort(*array_size, arr) << "sec.\n\n";
+		break;
+	case 2:
+		cout << "Sorting time - " << ShakerSort(*array_size, arr) << "sec.\n\n";
+		break;
+	case 3:
+		cout << "Sorting time - " << CombSort(*array_size, arr) << "sec.\n\n";
+		break;
+	case 4:
+		cout << "Sorting time - " << InsertSort(*array_size, arr) << "sec.\n\n";
+		break;
+	case 5:
+		unsigned int start_time = clock();
+		QuickSort(arr, 0, *array_size);
+		unsigned int end_time = clock();
+		float time = float(end_time - start_time) / 1000;
+		cout << "Sorting time - " << time << "sec.\n";
+		break;
+	}
+	PrintArray(*array_size, arr);
+	delete array_size;
+	delete func_choice;
+	delete func_choice_2;
+	delete[] arr;
 }
 
 void Flag()
@@ -524,7 +1008,7 @@ int main()
 			Greetings(*user_status);
 			break;
 		case 3:
-
+			Array();
 			break;
 		case 4:
 			Flag();
