@@ -2,6 +2,7 @@
 #include <conio.h> //Функция _getch() для считывания кода нажатых клавиш.
 #include <Windows.h> //Для настроек вывода в консоль и т.п.
 #include <stdlib.h> //Функция system("cls") для очистки консоли.
+#include <fstream> //Запись и чтение из файла.
 
 using namespace std;
 
@@ -146,12 +147,34 @@ short int Menu1() //Доп. меню для первого пункта.
 
 void Registration()
 {
-
+	char username[16];
+	char password[16];
+	cout << "Enter your username, only english letters and arabic numerals. (<= 16 symbols)\n";
+	cin >> username;
+	system("cls");
+	cout << "Enter your password, only english letters and arabic numerals. (<= 16 symbols)\n";
+	cin >> password;
+	system("cls");
+	ofstream data;
+	data.open("data.txt");
+	data << username;
+	data << endl;
+	data << password;
+	data.close();
 }
 
-short int Authorization()
+bool Authorization()
 {
-	return 0;
+	char true_username[16];
+	char true_password[16];
+	ifstream data;
+	data.open("data.txt");
+	data >> true_username;
+	data >> true_password;
+	data.close();
+	char input_username[16];
+	char input_password[16]; 
+	return true;
 }
 
 int main()
@@ -171,7 +194,7 @@ int main()
 			}
 			else
 			{
-				Authorization();
+				*user_status = Authorization();
 			}
 			break;
 		default:
